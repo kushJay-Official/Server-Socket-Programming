@@ -12,30 +12,37 @@ public class M_Server {
         try{
             System.out.println("Connecting...");
             ServerSocket serverSocket=new ServerSocket(5599);
-            Socket socket= serverSocket.accept();
-
-            DataInputStream dis =new DataInputStream(socket.getInputStream());
-            DataOutputStream dos= new DataOutputStream(socket.getOutputStream());
-            BufferedReader b= new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("Connected...\nStart Conversation!");
-            String s1="",s2="";
-
-            while(!s1.equals("stop")){
-                s1=dis.readUTF();
-                System.out.println("Client:..."+s1);
-
-                s2=b.readLine();
-                dos.writeUTF(s2);
-                dos.flush();
-            }
-
-            dis.close();
-            socket.close();
-            serverSocket.close();
-
+            ServerSocket serverSocket2=new ServerSocket(5598);
+            getConn(serverSocket);
+            getConn(serverSocket2);
         }
         catch (Exception e){
             System.out.println(e);
         }
     }
+
+    public static void getConn(ServerSocket s12)throws Exception{
+        Socket ss1=s12.accept();
+        DataInputStream dis =new DataInputStream(ss1.getInputStream());
+        DataOutputStream dos= new DataOutputStream(ss1.getOutputStream());
+        BufferedReader b= new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Connected...\nStart Conversation!");
+        String s1="",s2="";
+
+        while(!s1.equals("stop")){
+            s1=dis.readUTF();
+            System.out.println("Client:..."+s1);
+
+            s2=b.readLine();
+            dos.writeUTF(s2);
+            dos.flush();
+        }
+
+        dis.close();
+        ss1.close();
+        s12.close();
+
+
+    }
+
 }

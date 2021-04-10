@@ -23,7 +23,7 @@ public class Client {
                 dos.writeUTF(s1);
                 dos.flush();
                 s2=dis.readUTF();
-                System.out.println("Server:..."+s2);
+                System.out.println("Server:...C1"+s2);
             }
             dos.close();
             socket.close();
